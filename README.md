@@ -51,11 +51,11 @@ o usuario de ter conhecimento de todas suas contas com apenas um clique.
 
 ## Diagrama de Classe - UML
 
-![Diagram de Classe](https://imageup.me/images/32ee0f66-dcab-423a-b419-2c4a23349716.png)
+![Diagrama de Classe](https://user-images.githubusercontent.com/98819630/228962327-e7e6d546-314c-4388-a9a0-0a420a876457.png)
 
 ## Fluxograma
 
-<image src="https://imageup.me/images/bae53781-7463-4acb-815c-6f1760ad42ec.png" style="width:50%; height:50%"/>
+![Fluxograma](https://user-images.githubusercontent.com/98819630/228962060-5b3dd648-1f98-420d-81b3-a07e97efcc3c.png)
 
 ## Tecnologias Utilizadas
 
