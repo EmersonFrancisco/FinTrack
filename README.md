@@ -66,5 +66,10 @@ o usuario de ter conhecimento de todas suas contas com apenas um clique.
    - Starter Validation
    - Starter Web
    - Starter test
-- MySql JDBC Connector 8.0.32
-   - FlyWay
+- MySql JDBC Connector
+- FlyWay
+- Apache Tomcat
+   
+## Autores
+
+| [<img src="https://avatars.githubusercontent.com/u/98819630?v=4" width=115><br><sub>Emerson Airton Francisco</sub>](https://github.com/EmersonFrancisco) | :---: | :---: | :---: |
