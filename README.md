@@ -72,4 +72,4 @@ o usuario de ter conhecimento de todas suas contas com apenas um clique.
    
 ## Autores
 
-| [<img src="https://avatars.githubusercontent.com/u/98819630?v=4" width=115><br><sub>Emerson Airton Francisco</sub>](https://github.com/EmersonFrancisco) | :---: | :---: | :---: |
+ [<img src="https://avatars.githubusercontent.com/u/98819630?v=4" width=115><br><sub>Emerson Airton Francisco</sub>](https://github.com/EmersonFrancisco) 
