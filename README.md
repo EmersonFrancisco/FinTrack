@@ -51,7 +51,7 @@ o usuario de ter conhecimento de todas suas contas com apenas um clique.
 
 ## Diagrama de Classe - UML
 
-![Diagrama de Classe](https://user-images.githubusercontent.com/98819630/228962327-e7e6d546-314c-4388-a9a0-0a420a876457.png)
+![Diagrama de Classe](https://user-images.githubusercontent.com/98819630/229291144-0b655df3-7414-45b9-a96a-a22bee0dde63.png)
 
 ## Fluxograma
 
