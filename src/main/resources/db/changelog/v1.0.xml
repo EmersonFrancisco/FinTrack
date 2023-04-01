@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+	
+    <changeSet id="1" author="Emerson Francisco">
+        <createTable tableName="user">
+            <column name="id" autoIncrement="true" type="INT(11)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="name" type="VARCHAR(100)" defaultValue="NULL" />
+            <column name="surname" type="VARCHAR(100)" defaultValue="NULL" />
+            <column name="username" type="VARCHAR(100)" defaultValue="NULL"/>
+            <column name="password" type="VARCHAR(200)" defaultValue="NULL" />
+            <column name="create_date" type="DATETIME" defaultValue="NULL" />
+            <column name="auth_token" type="VARCHAR(200)" defaultValue="NULL" />
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="2-create-table-wallet" author="Emerson Francisco">
+        <createTable tableName="wallet">
+            <column name="id" autoIncrement="true" type="INT(11)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="id_user" type="INT(11)" defaultValue="NULL" />
+            <column name="name" type="VARCHAR(100)" defaultValue="NULL" />
+            <column name="type" type="ENUM('BANK','MONEY')" defaultValue="MONEY" />
+            <column name="balance" type="DOUBLE" defaultValue="NULL"/>
+            <column name="create_date" type="DATETIME" defaultValue="NULL" />
+        </createTable>
+        <createIndex tableName="wallet" indexName="id_user_index">
+			<column name="id_user"></column>
+		</createIndex>
+		<addForeignKeyConstraint baseTableName="wallet" 
+			baseColumnNames="id_user" 
+			constraintName="fk_user"
+			onDelete="NO ACTION"
+			onUpdate="NO ACTION"
+			referencedTableName="user" 
+			referencedColumnNames="id"/>
+    </changeSet>
+    
+    <changeSet id="3-create-table-expense" author="Emerson Francisco">
+        <createTable tableName="expense">
+            <column name="id" autoIncrement="true" type="INT(11)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="id_user" type="INT(11)" defaultValue="NULL" />
+            <column name="name" type="VARCHAR(100)" defaultValue="NULL" />
+            <column name="type" type="ENUM('FIXED', 'FINANCED', 'CREDIT_CARD')" defaultValue="FIXED" />
+            <column name="day_month_payment" type="INT(11)" defaultValue="NULL"/>
+            <column name="status" type="ENUM('PENDENT', 'PARTIAL', 'PAID', 'DELAYED')" defaultValue="PENDENT" />
+            <column name="create_date" type="DATETIME" defaultValue="NULL" />
+        </createTable>
+        <createIndex tableName="expense" indexName="id_user_index">
+			<column name="id_user"></column>
+		</createIndex>
+		<addForeignKeyConstraint baseTableName="expense" 
+			baseColumnNames="id_user" 
+			constraintName="fk_user_expense"
+			onDelete="NO ACTION"
+			onUpdate="NO ACTION"
+			referencedTableName="user" 
+			referencedColumnNames="id"/>
+    </changeSet>
+    
+    <changeSet id="4-create-table-quota" author="Emerson Francisco">
+        <createTable tableName="quota">
+            <column name="id" autoIncrement="true" type="INT(11)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="id_expense" type="INT(11)" defaultValue="NULL" />
+            <column name="quota_number" type="INT(11)" defaultValue="NULL"/>
+            <column name="amount" type="DOUBLE" defaultValue="NULL"/>
+            <column name="total_paid" type="DOUBLE" defaultValue="NULL"/>
+            <column name="payment_day" type="DATETIME" defaultValue="NULL" />
+            <column name="status" type="ENUM('PENDENT', 'PARTIAL', 'PAID', 'DELAYED')" defaultValue="PENDENT" />
+        </createTable>
+        <createIndex tableName="quota" indexName="id_expense_index">
+			<column name="id_expense"></column>
+		</createIndex>
+		<addForeignKeyConstraint baseTableName="quota" 
+			baseColumnNames="id_expense" 
+			constraintName="fk_expense_quota"
+			onDelete="CASCADE"
+			onUpdate="NO ACTION"
+			referencedTableName="expense" 
+			referencedColumnNames="id"/>
+    </changeSet>
+    
+    <changeSet id="4-create-table-credit-card-and-relation-expense" author="Emerson Francisco">
+        <createTable tableName="credit_card">
+            <column name="id" autoIncrement="true" type="INT(11)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="id_user" type="INT(11)" defaultValue="NULL" />
+            <column name="name" type="VARCHAR(100)" defaultValue="NULL"/>
+            <column name="create_date" type="DATETIME" defaultValue="NULL" />
+        </createTable>
+        <createIndex tableName="credit_card" indexName="id_user_index">
+			<column name="id_user"></column>
+		</createIndex>
+		<addForeignKeyConstraint baseTableName="credit_card" 
+			baseColumnNames="id_user" 
+			constraintName="fk_user_credit_card"
+			onDelete="NO ACTION"
+			onUpdate="NO ACTION"
+			referencedTableName="user" 
+			referencedColumnNames="id"/>
+		<createTable tableName="re_credit_card_expense">
+            <column name="id" autoIncrement="true" type="INT(11)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="id_credit_card" type="INT(11)" defaultValue="NULL" />
+            <column name="id_expense" type="INT(11)" defaultValue="NULL" />
+        </createTable>
+        <addForeignKeyConstraint baseTableName="re_credit_card_expense" 
+			baseColumnNames="id_credit_card" 
+			constraintName="fk_re_credit_card_expense_credit_card"
+			onDelete="NO ACTION"
+			onUpdate="NO ACTION"
+			referencedTableName="credit_card" 
+			referencedColumnNames="id"/>
+		<addForeignKeyConstraint baseTableName="re_credit_card_expense" 
+			baseColumnNames="id_expense" 
+			constraintName="fk_re_credit_card_expense_expense"
+			onDelete="NO ACTION"
+			onUpdate="NO ACTION"
+			referencedTableName="expense" 
+			referencedColumnNames="id"/>
+    </changeSet>
+    
+</databaseChangeLog>
