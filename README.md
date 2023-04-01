@@ -4,10 +4,11 @@
   API para futura comunicaçãio com APP, que ira ser responsavel para gerenciamento, armazenamento, e entrega de dados de conta pessoal para controle proprio, permitindo
 o usuario de ter conhecimento de todas suas contas com apenas um clique.
 
-## Funcionalidade em Desenvolvimento ⌛
+## Funcionalidade em Desenvolvimento ⌛ ![](https://geps.dev/progress/25)
 
 ### Usuario
-- [ ] Criação Tabela Banco
+- [ x ] Criação Tabela Banco
+- [ x ] Criação e mapeamento de classe
 - [ ] Endpoint para Criação
 - [ ] Endpoint para Edição
 - [ ] Endpoint para Deleção
@@ -15,28 +16,32 @@ o usuario de ter conhecimento de todas suas contas com apenas um clique.
 - [ ] Sistema de Validação e persisntencia da autenticação
 
 ### Carteira
-- [ ] Criação Tabela Banco
+- [ x ] Criação Tabela Banco
+- [ x ] Criação e mapeamento de classe
 - [ ] Endpoint para Criação
 - [ ] Endpoint para Edição
 - [ ] Endpoint para Deleção
 
 ### Despesa
-- [ ] Criação Tabela Banco
+- [ x ] Criação Tabela Banco
+- [ x ] Criação e mapeamento de classe
 - [ ] Endpoint para Criação
 - [ ] Endpoint para Edição
 - [ ] Endpoint para Deleção
   - **Parcelas**
-  - [ ] Criação Tabela Banco relacionamento despesa
-  - [ ] Endpoint para Criação ao criar despesa
-  - [ ] Endpoint para Edição ao editar despesa
-  - [ ] Endpoint para Deleção ao editar despesa
+  - [ x ] Criação Tabela Banco
+  - [ x ] Criação e mapeamento de classe
+  - [ ] Endpoint para Criação 
+  - [ ] Endpoint para Edição 
+  - [ ] Endpoint para Deleção
 
 ### Cartões de Credito
-- [ ] Criação Tabela Banco
+- [ x ] Criação Tabela Banco
+- [ x ] Criação e mapeamento de classe
 - [ ] Endpoint para Criação
 - [ ] Endpoint para Edição
 - [ ] Endpoint para Deleção
-- [ ] Relacionamento de Despesas com Cartão de Credito
+- [ x ] Relacionamento de Despesas com Cartão de Credito
 
 ### Deposito
 - [ ] Criação Tabela Banco
@@ -50,8 +55,7 @@ o usuario de ter conhecimento de todas suas contas com apenas um clique.
    - vincular pagamento com despesa, e vincular para debitar em carteira
 
 ## Diagrama de Classe - UML
-
-![Diagrama de Classe](https://user-images.githubusercontent.com/98819630/229291144-0b655df3-7414-45b9-a96a-a22bee0dde63.png)
+![Diagrama de Classe](https://user-images.githubusercontent.com/98819630/229304511-51368701-f086-4745-8d31-fd5a8c793662.png)
 
 ## Fluxograma
 
