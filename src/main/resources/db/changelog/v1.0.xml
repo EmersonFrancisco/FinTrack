@@ -25,7 +25,9 @@
             <column name="id" autoIncrement="true" type="INT(11)">
                 <constraints primaryKey="true" nullable="false" />
             </column>
-            <column name="id_user" type="INT(11)" defaultValue="NULL" />
+            <column name="id_user" type="INT(11)">
+            	<constraints nullable="false" />
+            </column>
             <column name="name" type="VARCHAR(100)" defaultValue="NULL" />
             <column name="type" type="ENUM('BANK','MONEY')" defaultValue="MONEY" />
             <column name="balance" type="DOUBLE" defaultValue="NULL"/>
@@ -48,7 +50,9 @@
             <column name="id" autoIncrement="true" type="INT(11)">
                 <constraints primaryKey="true" nullable="false" />
             </column>
-            <column name="id_user" type="INT(11)" defaultValue="NULL" />
+            <column name="id_user" type="INT(11)">
+            	<constraints nullable="false" />
+            </column>
             <column name="name" type="VARCHAR(100)" defaultValue="NULL" />
             <column name="type" type="ENUM('FIXED', 'FINANCED', 'CREDIT_CARD')" defaultValue="FIXED" />
             <column name="day_month_payment" type="INT(11)" defaultValue="NULL"/>
@@ -72,7 +76,9 @@
             <column name="id" autoIncrement="true" type="INT(11)">
                 <constraints primaryKey="true" nullable="false" />
             </column>
-            <column name="id_expense" type="INT(11)" defaultValue="NULL" />
+            <column name="id_expense" type="INT(11)">
+            	<constraints nullable="false" />
+            </column>
             <column name="quota_number" type="INT(11)" defaultValue="NULL"/>
             <column name="amount" type="DOUBLE" defaultValue="NULL"/>
             <column name="total_paid" type="DOUBLE" defaultValue="NULL"/>
@@ -91,12 +97,14 @@
 			referencedColumnNames="id"/>
     </changeSet>
     
-    <changeSet id="4-create-table-credit-card-and-relation-expense" author="Emerson Francisco">
+    <changeSet id="5-create-table-credit-card-and-relation-expense" author="Emerson Francisco">
         <createTable tableName="credit_card">
             <column name="id" autoIncrement="true" type="INT(11)">
                 <constraints primaryKey="true" nullable="false" />
             </column>
-            <column name="id_user" type="INT(11)" defaultValue="NULL" />
+            <column name="id_user" type="INT(11)">
+            	<constraints nullable="false" />
+            </column>
             <column name="name" type="VARCHAR(100)" defaultValue="NULL"/>
             <column name="create_date" type="DATETIME" defaultValue="NULL" />
         </createTable>
@@ -114,8 +122,12 @@
             <column name="id" autoIncrement="true" type="INT(11)">
                 <constraints primaryKey="true" nullable="false" />
             </column>
-            <column name="id_credit_card" type="INT(11)" defaultValue="NULL" />
-            <column name="id_expense" type="INT(11)" defaultValue="NULL" />
+            <column name="id_credit_card" type="INT(11)">
+            	<constraints nullable="false" />
+            </column>
+            <column name="id_expense" type="INT(11)">
+            	<constraints nullable="false" />
+            </column>
         </createTable>
         <addForeignKeyConstraint baseTableName="re_credit_card_expense" 
 			baseColumnNames="id_credit_card" 
@@ -131,6 +143,110 @@
 			onUpdate="NO ACTION"
 			referencedTableName="expense" 
 			referencedColumnNames="id"/>
+    </changeSet>
+    
+    <changeSet id="6-create-table-deposit" author="Emerson Francisco">
+        <createTable tableName="deposit">
+            <column name="id" autoIncrement="true" type="INT(11)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="id_user" type="INT(11)">
+            	<constraints nullable="false" />
+            </column>
+            <column name="id_wallet" type="INT(11)">
+            	<constraints nullable="false" />
+            </column>
+            <column name="description" type="VARCHAR(200)" defaultValue="NULL"/>
+            <column name="amount" type="DOUBLE" defaultValue="NULL"/>
+            <column name="create_date" type="DATETIME" defaultValue="NULL" />
+        </createTable>
+        <createIndex tableName="deposit" indexName="id_wallet_index">
+			<column name="id_wallet"></column>
+		</createIndex>
+		<createIndex tableName="deposit" indexName="id_user_index">
+			<column name="id_user"></column>
+		</createIndex>
+		<addForeignKeyConstraint baseTableName="deposit" 
+			baseColumnNames="id_wallet" 
+			constraintName="fk_wallet_deposit"
+			onDelete="CASCADE"
+			onUpdate="NO ACTION"
+			referencedTableName="wallet" 
+			referencedColumnNames="id"/>
+		<addForeignKeyConstraint baseTableName="deposit" 
+			baseColumnNames="id_user" 
+			constraintName="fk_user_deposit"
+			onDelete="CASCADE"
+			onUpdate="NO ACTION"
+			referencedTableName="user" 
+			referencedColumnNames="id"/>
+    </changeSet>
+    
+   <changeSet id="7-create-table-payment-and-relation-quotas" author="Emerson Francisco">
+        <createTable tableName="payment">
+            <column name="id" autoIncrement="true" type="INT(11)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="id_user" type="INT(11)">
+            	<constraints nullable="false" />
+            </column>
+            <column name="id_wallet" type="INT(11)">
+            	<constraints nullable="false" />
+            </column>
+            <column name="description" type="VARCHAR(200)" defaultValue="NULL"/>
+            <column name="amount" type="DOUBLE" defaultValue="NULL"/>
+            <column name="create_date" type="DATETIME" defaultValue="NULL" />
+        </createTable>
+        <createIndex tableName="payment" indexName="id_wallet_index">
+			<column name="id_wallet"></column>
+		</createIndex>
+		<createIndex tableName="payment" indexName="id_user_index">
+			<column name="id_user"></column>
+		</createIndex>
+		<addForeignKeyConstraint baseTableName="payment" 
+			baseColumnNames="id_wallet" 
+			constraintName="fk_wallet_payment"
+			onDelete="CASCADE"
+			onUpdate="NO ACTION"
+			referencedTableName="wallet" 
+			referencedColumnNames="id"/>
+		<addForeignKeyConstraint baseTableName="payment" 
+			baseColumnNames="id_user" 
+			constraintName="fk_user_payment"
+			onDelete="CASCADE"
+			onUpdate="NO ACTION"
+			referencedTableName="user" 
+			referencedColumnNames="id"/>
+			
+		<createTable tableName="re_payment_quota">
+			<column name="id" autoIncrement="true" type="INT(11)">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="id_payment" type="INT(11)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="id_quota" type="INT(11)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="amount" type="DOUBLE">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+		<addForeignKeyConstraint baseTableName="re_payment_quota" 
+			baseColumnNames="id_payment" 
+			constraintName="fk_payment_re_payment_quota"
+			onDelete="CASCADE"
+			onUpdate="NO ACTION"
+			referencedTableName="payment" 
+			referencedColumnNames="id"/>
+		<addForeignKeyConstraint baseTableName="re_payment_quota" 
+			baseColumnNames="id_quota" 
+			constraintName="fk_quota_re_payment_quota"
+			onDelete="CASCADE"
+			onUpdate="NO ACTION"
+			referencedTableName="quota" 
+			referencedColumnNames="id"/>
+			
     </changeSet>
     
 </databaseChangeLog>

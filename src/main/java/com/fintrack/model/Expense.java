@@ -56,6 +56,7 @@ public class Expense implements Serializable {
 	private ExpenseType type;
 	
 	@Column(name = "day_month_payment")
+	@Basic(optional = false)
 	private Integer dayMonthPayment;
 	
 	@OneToMany(mappedBy = "expense", cascade = CascadeType.ALL, orphanRemoval = true)

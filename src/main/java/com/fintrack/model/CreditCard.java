@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -32,16 +34,23 @@ public class CreditCard implements Serializable {
 	@Column(name = "id")
 	private Integer id;
 	
-	@ManyToOne(optional = false)
+	@ManyToOne
+	@Basic(optional = false)
 	@JoinColumn(name = "id_user", referencedColumnName = "id")
 	private User user;
 	
 	@Column(name = "name")
+	@Basic(optional = false)
 	private String name;
 	
 	@Column(name = "create_date")
 	@Temporal(TemporalType.DATE)
 	private Date createDate;
+	
+	@PrePersist
+	private void prePersist() {
+		createDate = new Date();
+	}
 
 	@Override
 	public int hashCode() {

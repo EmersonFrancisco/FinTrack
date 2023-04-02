@@ -34,12 +34,19 @@ public class User implements Serializable {
 	private Integer id;
 	
 	@Column(name = "name")
+	@Basic(optional = false)
 	private String name;
 	
 	@Column(name = "surname")
+	@Basic(optional = false)
 	private String surname;
+
+	@Column(name = "username")
+	@Basic(optional = false)
+	private String username;
 	
 	@Column(name = "password")
+	@Basic(optional = false)
 	private String password;
 	
 	@Column(name = "create_date")

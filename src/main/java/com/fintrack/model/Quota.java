@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import com.fintrack.enums.ExpenseStatus;
 
+import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -38,22 +39,27 @@ public class Quota implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "id_expense")
+	@Basic(optional = false)
 	private Expense expense;
 	
 	@Column(name = "quota_number")
+	@Basic(optional = false)
 	private Integer quotaNumber;
 	
 	@Column(name = "amount")
+	@Basic(optional = false)
 	private Float amount;
 	
 	@Column(name = "total_paid")
 	private Float totalPaid;
 	
 	@Column(name = "payment_day")
+	@Basic(optional = false)
 	@Temporal(TemporalType.DATE)
 	private Date paymentDay;
 	
 	@Column(name = "status")
+	@Basic(optional = false)
 	@Enumerated(EnumType.STRING)
 	private ExpenseStatus status;
 

@@ -2,27 +2,18 @@ package com.fintrack.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
-import com.fintrack.enums.WalletType;
-
 import jakarta.persistence.Basic;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,8 +22,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @Entity
-@Table(name = "wallet")
-public class Wallet implements Serializable{
+@Table(name = "payment")
+public class Payment implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -41,40 +32,36 @@ public class Wallet implements Serializable{
 	@Column(name = "id")
 	private Integer id;
 	
-	@JoinColumn(name = "id_user", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-	private User user;
-	
-	@Column(name = "name")
+	@Column(name = "id_user")
 	@Basic(optional = false)
-	private String name;
+	private Integer idUser;
 	
-	@Column(name = "type")
+	@ManyToOne
+	@JoinColumn(name = "id_wallet", referencedColumnName = "id")
 	@Basic(optional = false)
-	@Enumerated(EnumType.STRING)
-	private WalletType type;
+	private Wallet wallet;
 	
-	@Column(name = "balance")
+	@Column(name = "description")
 	@Basic(optional = false)
-	private Float balance;
+	private String description;
 	
-	@OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Deposit> deposits;
+	@Column(name = "amount")
+	@Basic(optional = false)
+	private Float amount;
 	
 	@Column(name = "create_date")
-	@Temporal(TemporalType.DATE)
 	private Date createDate;
 	
 	@PrePersist
 	private void prePersist() {
 		createDate = new Date();
 	}
-	
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(balance, createDate, id, name, type, user);
+		return Objects.hash(amount, createDate, description, id, idUser, wallet);
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -83,10 +70,10 @@ public class Wallet implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Wallet other = (Wallet) obj;
-		return Objects.equals(balance, other.balance) && Objects.equals(createDate, other.createDate)
-				&& Objects.equals(id, other.id) && Objects.equals(name, other.name) && type == other.type
-				&& Objects.equals(user, other.user);
+		Payment other = (Payment) obj;
+		return Objects.equals(amount, other.amount) && Objects.equals(createDate, other.createDate)
+				&& Objects.equals(description, other.description) && Objects.equals(id, other.id)
+				&& Objects.equals(idUser, other.idUser) && Objects.equals(wallet, other.wallet);
 	}
-	
+
 }
