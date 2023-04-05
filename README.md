@@ -4,14 +4,14 @@
   API para futura comunicaçãio com APP, que ira ser responsavel para gerenciamento, armazenamento, e entrega de dados de conta pessoal para controle proprio, permitindo
 o usuario de ter conhecimento de todas suas contas com apenas um clique.
 
-## Funcionalidade em Desenvolvimento ⌛ ![](https://geps.dev/progress/34)
+## Funcionalidade em Desenvolvimento ⌛ ![](https://geps.dev/progress/46)
 
 ### Usuario
 - [x] Criação Tabela Banco
 - [x] Criação e mapeamento de classe
-- [ ] Endpoint para Criação
-- [ ] Endpoint para Edição
-- [ ] Endpoint para Deleção
+- [x] Endpoint para Criação
+- [x] Endpoint para Edição
+- [x] Endpoint para Deleção
 - [ ] Endpoint para Autenticação
 - [ ] Sistema de Validação e persisntencia da autenticação
 
@@ -44,13 +44,13 @@ o usuario de ter conhecimento de todas suas contas com apenas um clique.
 - [x] Relacionamento de Despesas com Cartão de Credito
 
 ### Deposito
-- [ ] Criação Tabela Banco
+- [x] Criação Tabela Banco
 - [ ] Endpoint para Efetuar Deposito
    - vincular deposito para creditar em carteira
 
 
 ### Pagamento
-- [ ] Criação Tabela Banco
+- [x] Criação Tabela Banco
 - [ ] Endpoint para Criação
    - vincular pagamento com despesa, e vincular para debitar em carteira
 
@@ -71,7 +71,7 @@ o usuario de ter conhecimento de todas suas contas com apenas um clique.
    - Starter Web
    - Starter test
 - MySql JDBC Connector
-- FlyWay
+- Liquibase
 - Apache Tomcat
    
 ## Autores
