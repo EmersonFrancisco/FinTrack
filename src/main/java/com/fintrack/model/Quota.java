@@ -1,7 +1,7 @@
 package com.fintrack.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.Objects;
 
 import com.fintrack.enums.ExpenseStatus;
@@ -17,16 +17,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
 @Table(name = "quota")
 public class Quota implements Serializable {
 
@@ -55,8 +47,7 @@ public class Quota implements Serializable {
 	
 	@Column(name = "payment_day")
 	@Basic(optional = false)
-	@Temporal(TemporalType.DATE)
-	private Date paymentDay;
+	private OffsetDateTime paymentDay;
 	
 	@Column(name = "status")
 	@Basic(optional = false)
@@ -80,6 +71,62 @@ public class Quota implements Serializable {
 		return Objects.equals(amount, other.amount) && Objects.equals(id, other.id)
 				&& Objects.equals(paymentDay, other.paymentDay) && Objects.equals(quotaNumber, other.quotaNumber)
 				&& status == other.status && Objects.equals(totalPaid, other.totalPaid);
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Expense getExpense() {
+		return expense;
+	}
+
+	public void setExpense(Expense expense) {
+		this.expense = expense;
+	}
+
+	public Integer getQuotaNumber() {
+		return quotaNumber;
+	}
+
+	public void setQuotaNumber(Integer quotaNumber) {
+		this.quotaNumber = quotaNumber;
+	}
+
+	public Float getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Float amount) {
+		this.amount = amount;
+	}
+
+	public Float getTotalPaid() {
+		return totalPaid;
+	}
+
+	public void setTotalPaid(Float totalPaid) {
+		this.totalPaid = totalPaid;
+	}
+
+	public OffsetDateTime getPaymentDay() {
+		return paymentDay;
+	}
+
+	public void setPaymentDay(OffsetDateTime paymentDay) {
+		this.paymentDay = paymentDay;
+	}
+
+	public ExpenseStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(ExpenseStatus status) {
+		this.status = status;
 	}
 	
 }

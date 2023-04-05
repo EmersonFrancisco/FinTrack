@@ -1,11 +1,12 @@
 package com.fintrack.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Objects;
 
 import com.fintrack.enums.WalletType;
+import com.fintrack.model.user.User;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
@@ -21,15 +22,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
-@AllArgsConstructor
 @Entity
 @Table(name = "wallet")
 public class Wallet implements Serializable{
@@ -62,12 +55,11 @@ public class Wallet implements Serializable{
 	private List<Deposit> deposits;
 	
 	@Column(name = "create_date")
-	@Temporal(TemporalType.DATE)
-	private Date createDate;
+	private OffsetDateTime createDate;
 	
 	@PrePersist
 	private void prePersist() {
-		createDate = new Date();
+		createDate = OffsetDateTime.now();
 	}
 	
 	@Override
@@ -87,6 +79,62 @@ public class Wallet implements Serializable{
 		return Objects.equals(balance, other.balance) && Objects.equals(createDate, other.createDate)
 				&& Objects.equals(id, other.id) && Objects.equals(name, other.name) && type == other.type
 				&& Objects.equals(user, other.user);
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public WalletType getType() {
+		return type;
+	}
+
+	public void setType(WalletType type) {
+		this.type = type;
+	}
+
+	public Float getBalance() {
+		return balance;
+	}
+
+	public void setBalance(Float balance) {
+		this.balance = balance;
+	}
+
+	public List<Deposit> getDeposits() {
+		return deposits;
+	}
+
+	public void setDeposits(List<Deposit> deposits) {
+		this.deposits = deposits;
+	}
+
+	public OffsetDateTime getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(OffsetDateTime createDate) {
+		this.createDate = createDate;
 	}
 	
 }

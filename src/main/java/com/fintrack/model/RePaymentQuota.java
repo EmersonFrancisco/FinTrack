@@ -9,13 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
-@AllArgsConstructor
 @Entity
 @Table(name = "re_payment_quota")
 public class RePaymentQuota implements Serializable {
@@ -38,5 +32,37 @@ public class RePaymentQuota implements Serializable {
 	@Column(name = "amount")
 	@Basic(optional = false)
 	private Double amount;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getIdPayment() {
+		return idPayment;
+	}
+
+	public void setIdPayment(Integer idPayment) {
+		this.idPayment = idPayment;
+	}
+
+	public Integer getIdQuota() {
+		return idQuota;
+	}
+
+	public void setIdQuota(Integer idQuota) {
+		this.idQuota = idQuota;
+	}
+
+	public Double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Double amount) {
+		this.amount = amount;
+	}
 
 }

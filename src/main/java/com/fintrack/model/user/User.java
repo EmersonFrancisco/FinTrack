@@ -1,7 +1,7 @@
-package com.fintrack.model;
+package com.fintrack.model.user;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.Objects;
 
 import jakarta.persistence.Basic;
@@ -12,15 +12,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
-@Getter
-@Setter
-@AllArgsConstructor
 @Entity
 @Table(name = "user")
 public class User implements Serializable {
@@ -35,28 +29,37 @@ public class User implements Serializable {
 	
 	@Column(name = "name")
 	@Basic(optional = false)
+	@Size(max = 100)
+	@NotBlank
 	private String name;
 	
 	@Column(name = "surname")
 	@Basic(optional = false)
+	@Size(max = 100)
+	@NotBlank
 	private String surname;
 
 	@Column(name = "username")
 	@Basic(optional = false)
+	@Size(max = 100)
+	@NotBlank
 	private String username;
 	
 	@Column(name = "password")
 	@Basic(optional = false)
+	@Size(max = 100)
+	@NotBlank
 	private String password;
 	
 	@Column(name = "create_date")
-	@Temporal(TemporalType.DATE)
-	private Date createDate;
+	private OffsetDateTime createDate;
+	
+	@Column(name = "auth_token")
 	private String authToken;
 	
 	@PrePersist
 	private void prePersist() {
-		createDate = new Date();
+		createDate = OffsetDateTime.now();
 	}
 	
 	@Override
@@ -76,6 +79,62 @@ public class User implements Serializable {
 		return Objects.equals(authToken, other.authToken) && Objects.equals(createDate, other.createDate)
 				&& Objects.equals(id, other.id) && Objects.equals(name, other.name)
 				&& Objects.equals(password, other.password) && Objects.equals(surname, other.surname);
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public OffsetDateTime getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(OffsetDateTime createDate) {
+		this.createDate = createDate;
+	}
+
+	public String getAuthToken() {
+		return authToken;
+	}
+
+	public void setAuthToken(String authToken) {
+		this.authToken = authToken;
 	}
 	
 }

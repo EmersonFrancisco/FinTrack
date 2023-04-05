@@ -1,12 +1,13 @@
 package com.fintrack.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Objects;
 
 import com.fintrack.enums.ExpenseStatus;
 import com.fintrack.enums.ExpenseType;
+import com.fintrack.model.user.User;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
@@ -22,15 +23,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
-@AllArgsConstructor
 @Entity
 @Table(name = "expense")
 public class Expense implements Serializable {
@@ -68,12 +61,11 @@ public class Expense implements Serializable {
 	private ExpenseStatus status;
 	
 	@Column(name = "create_date")
-	@Temporal(TemporalType.DATE)
-	private Date createDate;
+	private OffsetDateTime createDate;
 
 	@PrePersist
 	private void prePersist() {
-		createDate = new Date();
+		createDate = OffsetDateTime.now();
 	}
 
 	@Override
@@ -93,6 +85,70 @@ public class Expense implements Serializable {
 		return Objects.equals(createDate, other.createDate) && Objects.equals(dayMonthPayment, other.dayMonthPayment)
 				&& Objects.equals(id, other.id) && Objects.equals(name, other.name) && status == other.status
 				&& type == other.type && Objects.equals(user, other.user);
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public ExpenseType getType() {
+		return type;
+	}
+
+	public void setType(ExpenseType type) {
+		this.type = type;
+	}
+
+	public Integer getDayMonthPayment() {
+		return dayMonthPayment;
+	}
+
+	public void setDayMonthPayment(Integer dayMonthPayment) {
+		this.dayMonthPayment = dayMonthPayment;
+	}
+
+	public List<Quota> getQuotas() {
+		return quotas;
+	}
+
+	public void setQuotas(List<Quota> quotas) {
+		this.quotas = quotas;
+	}
+
+	public ExpenseStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(ExpenseStatus status) {
+		this.status = status;
+	}
+
+	public OffsetDateTime getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(OffsetDateTime createDate) {
+		this.createDate = createDate;
 	}
 	
 }

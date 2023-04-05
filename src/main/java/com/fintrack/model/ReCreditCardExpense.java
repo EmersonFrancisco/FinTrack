@@ -28,6 +28,29 @@ public class ReCreditCardExpense implements Serializable {
 	@Column(name = "id_expense")
 	@Basic(optional = false)
 	private Integer idExpense;
-	
-	
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getIdCreditCard() {
+		return idCreditCard;
+	}
+
+	public void setIdCreditCard(Integer idCreditCard) {
+		this.idCreditCard = idCreditCard;
+	}
+
+	public Integer getIdExpense() {
+		return idExpense;
+	}
+
+	public void setIdExpense(Integer idExpense) {
+		this.idExpense = idExpense;
+	}
+		
 }

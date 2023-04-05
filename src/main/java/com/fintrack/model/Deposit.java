@@ -1,7 +1,7 @@
 package com.fintrack.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.Objects;
 
 import jakarta.persistence.Basic;
@@ -14,15 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
-@AllArgsConstructor
 @Entity
 @Table(name = "deposit")
 public class Deposit implements Serializable {
@@ -50,12 +42,11 @@ public class Deposit implements Serializable {
 	private Float amount;
 	
 	@Column(name = "create_date")
-	@Temporal(TemporalType.DATE)
-	private Date createDate;
+	private OffsetDateTime createDate;
 	
 	@PrePersist
 	private void prePersist() {
-		createDate = new Date();
+		createDate = OffsetDateTime.now();
 	}
 
 	@Override
@@ -75,6 +66,54 @@ public class Deposit implements Serializable {
 		return Objects.equals(amount, other.amount) && Objects.equals(createDate, other.createDate)
 				&& Objects.equals(description, other.description) && Objects.equals(id, other.id)
 				&& Objects.equals(idUser, other.idUser) && Objects.equals(wallet, other.wallet);
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(Integer idUser) {
+		this.idUser = idUser;
+	}
+
+	public Wallet getWallet() {
+		return wallet;
+	}
+
+	public void setWallet(Wallet wallet) {
+		this.wallet = wallet;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Float getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Float amount) {
+		this.amount = amount;
+	}
+
+	public OffsetDateTime getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(OffsetDateTime createDate) {
+		this.createDate = createDate;
 	}
 	
 }

@@ -1,8 +1,10 @@
 package com.fintrack.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.Objects;
+
+import com.fintrack.model.user.User;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -14,15 +16,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
-@AllArgsConstructor
 @Entity
 @Table(name = "credit_card")
 public class CreditCard implements Serializable {
@@ -44,12 +38,11 @@ public class CreditCard implements Serializable {
 	private String name;
 	
 	@Column(name = "create_date")
-	@Temporal(TemporalType.DATE)
-	private Date createDate;
+	private OffsetDateTime createDate;
 	
 	@PrePersist
 	private void prePersist() {
-		createDate = new Date();
+		createDate = OffsetDateTime.now();
 	}
 
 	@Override
@@ -68,6 +61,38 @@ public class CreditCard implements Serializable {
 		CreditCard other = (CreditCard) obj;
 		return Objects.equals(createDate, other.createDate) && Objects.equals(id, other.id)
 				&& Objects.equals(name, other.name) && Objects.equals(user, other.user);
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public OffsetDateTime getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(OffsetDateTime createDate) {
+		this.createDate = createDate;
 	}
 	
 }
