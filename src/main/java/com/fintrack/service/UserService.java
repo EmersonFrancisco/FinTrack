@@ -22,4 +22,6 @@ public interface UserService {
 
 	public UserResponseDTO getUserById(Integer userId);
 
+	public String validateCredencialsAndMakeAuthToken(String username, String password) throws NoSuchAlgorithmException, UnsupportedEncodingException;
+
 }

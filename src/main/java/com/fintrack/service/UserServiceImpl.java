@@ -4,25 +4,32 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fintrack.exception.AuthenticationException;
 import com.fintrack.exception.UserValidateException;
 import com.fintrack.model.user.User;
 import com.fintrack.model.user.UserBasicDTO;
 import com.fintrack.model.user.UserResponseDTO;
 import com.fintrack.repositories.UserRepositories;
+import com.fintrack.utils.PropertiesReader;
 
 @Service
 public class UserServiceImpl implements UserService {
 	
-	private static final String ALEATORY_MD5_PT1 = "8E059C750B86ACC";
-	private static final String ALEATORY_MD5_PT2 = "B40939C1A361FC4B1";
+	private static final String _02X = "%02X";
+	private static final String SHA_256 = "SHA-256";
+	private static final String UTF_8 = "UTF-8";
+	private static String aleatoryMd5Pt1 = PropertiesReader.getPropertiesByKey("aleatory.md5.pt1");
+	private static String aleatoryMd5Pt2 = PropertiesReader.getPropertiesByKey("aleatory.md5.pt2");
 	
 	@Autowired
 	UserRepositories userRepositories;
@@ -60,13 +67,14 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public String encryptPassword(String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-	 MessageDigest algoritmo = MessageDigest.getInstance("SHA-256");
-	 byte digestMessage[] = algoritmo.digest(password.getBytes("UTF-8"));
+	 MessageDigest algoritmo = MessageDigest.getInstance(SHA_256);
+	 String aleatoryConcatPassword = aleatoryMd5Pt1+password+aleatoryMd5Pt2;
+	 byte digestMessage[] = algoritmo.digest(aleatoryConcatPassword.getBytes(UTF_8));
 	 StringBuilder hexPassword = new StringBuilder();
 	 for (byte aByte : digestMessage) {
-	    hexPassword.append(String.format("%02X", 0xFF & aByte));
+	    hexPassword.append(String.format(_02X, 0xFF & aByte));
 	 }
-	 return ALEATORY_MD5_PT1+hexPassword.toString()+ALEATORY_MD5_PT2;
+	 return hexPassword.toString();
 	}
 
 	@Override
@@ -114,6 +122,34 @@ public class UserServiceImpl implements UserService {
 		} else {
 			throw new UserValidateException(String.format("User by id [%d] not exist or is Deleted", userId));
 		}
+	}
+
+	@Override
+	public String validateCredencialsAndMakeAuthToken(String username, String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		if(StringUtils.isNotBlank(username) && StringUtils.isNotBlank(password)) {
+			User user = userRepositories.findByUsername(username);
+			if(user != null) {
+				return validatePassword(user, password);
+			}
+			throw new AuthenticationException("Invalid Username");
+		}
+		return StringUtils.EMPTY;
+	}
+
+	private String validatePassword(User user, String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		String encryptedPassword = encryptPassword(password);
+		if(user.getPassword().equals(encryptedPassword)) {
+			String authToken = makeAuthenticationHashToken(user);
+			user.setAuthToken(authToken);
+			save(user);
+			return authToken;
+		}
+		throw new AuthenticationException("Invalid Password");
+	}
+
+	private String makeAuthenticationHashToken(User user) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		String fullInfoToHash = user.getId()+user.getUsername()+user.getCreateDate()+new Date();
+		return encryptPassword(fullInfoToHash);
 	}
 
 }
