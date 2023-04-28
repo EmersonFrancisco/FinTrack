@@ -4,7 +4,7 @@
   API para futura comunicaçãio com APP, que ira ser responsavel para gerenciamento, armazenamento, e entrega de dados de conta pessoal para controle proprio, permitindo
 o usuario de ter conhecimento de todas suas contas com apenas um clique.
 
-## Funcionalidade em Desenvolvimento ⌛ ![](https://geps.dev/progress/48)
+## Funcionalidade em Desenvolvimento ⌛ ![](https://geps.dev/progress/65)
 
 ### Usuario
 - [x] Criação Tabela Banco
@@ -18,9 +18,9 @@ o usuario de ter conhecimento de todas suas contas com apenas um clique.
 ### Carteira
 - [x] Criação Tabela Banco
 - [x] Criação e mapeamento de classe
-- [ ] Endpoint para Criação
-- [ ] Endpoint para Edição
-- [ ] Endpoint para Deleção
+- [x] Endpoint para Criação
+- [x] Endpoint para Edição
+- [x] Endpoint para Deleção
 
 ### Despesa
 - [x] Criação Tabela Banco

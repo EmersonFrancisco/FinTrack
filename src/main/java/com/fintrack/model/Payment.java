@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
+import com.fintrack.model.wallet.Wallet;
+
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

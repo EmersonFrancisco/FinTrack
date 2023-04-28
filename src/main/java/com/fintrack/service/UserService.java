@@ -24,4 +24,6 @@ public interface UserService {
 
 	public String validateCredencialsAndMakeAuthToken(String username, String password) throws NoSuchAlgorithmException, UnsupportedEncodingException;
 
+	User verifyIntegrityAuthTokenAndGetUser(String authToken);
+
 }

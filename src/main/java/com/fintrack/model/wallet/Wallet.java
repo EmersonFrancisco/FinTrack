@@ -1,4 +1,4 @@
-package com.fintrack.model;
+package com.fintrack.model.wallet;
 
 import java.io.Serializable;
 import java.time.OffsetDateTime;
@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.fintrack.enums.WalletType;
+import com.fintrack.model.Deposit;
 import com.fintrack.model.user.User;
 
 import jakarta.persistence.Basic;
@@ -22,6 +23,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "wallet")
@@ -38,10 +40,12 @@ public class Wallet implements Serializable{
     @ManyToOne(optional = false)
 	private User user;
 	
+	@NotBlank
 	@Column(name = "name")
 	@Basic(optional = false)
 	private String name;
 	
+	@NotBlank
 	@Column(name = "type")
 	@Basic(optional = false)
 	@Enumerated(EnumType.STRING)
@@ -49,7 +53,7 @@ public class Wallet implements Serializable{
 	
 	@Column(name = "balance")
 	@Basic(optional = false)
-	private Float balance;
+	private Double balance;
 	
 	@OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Deposit> deposits;
@@ -113,11 +117,11 @@ public class Wallet implements Serializable{
 		this.type = type;
 	}
 
-	public Float getBalance() {
+	public Double getBalance() {
 		return balance;
 	}
 
-	public void setBalance(Float balance) {
+	public void setBalance(Double balance) {
 		this.balance = balance;
 	}
 

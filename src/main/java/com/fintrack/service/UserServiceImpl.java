@@ -151,5 +151,14 @@ public class UserServiceImpl implements UserService {
 		String fullInfoToHash = user.getId()+user.getUsername()+user.getCreateDate()+new Date();
 		return encryptPassword(fullInfoToHash);
 	}
+	
+	@Override
+	public User verifyIntegrityAuthTokenAndGetUser(String authToken) {
+		User user = userRepositories.findByAuthToken(authToken);
+		if(user != null) {
+			return user;
+		}
+		throw new AuthenticationException("This Token does not exist or is no longer avaliable");
+	}
 
 }
