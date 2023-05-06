@@ -18,6 +18,7 @@ import com.fintrack.exception.AuthenticationException;
 import com.fintrack.exception.UserValidateException;
 import com.fintrack.model.user.User;
 import com.fintrack.model.user.UserBasicDTO;
+import com.fintrack.model.user.UserRequestDTO;
 import com.fintrack.model.user.UserResponseDTO;
 import com.fintrack.repositories.UserRepositories;
 import com.fintrack.utils.PropertiesReader;
@@ -47,13 +48,18 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserResponseDTO createNewUser(User user) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-		validateIfUsernameExist(user.getUsername());
+	public UserResponseDTO createNewUser(UserRequestDTO userRequest) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		validateIfUsernameExist(userRequest.getUsername());
+		User user = convertRequestToUser(userRequest);
 		encriptPassword(user);
 		user = save(user);
 		return toUserResponseDTO(user);
 	}
 	
+	private User convertRequestToUser(UserRequestDTO userRequest) {
+		return modelMapper.map(userRequest, User.class);
+	}
+
 	private void validateIfUsernameExist(String username) {
 		if (userRepositories.existsByUsername(username)) {
 			throw new UserValidateException("username exist");

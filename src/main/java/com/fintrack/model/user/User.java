@@ -12,8 +12,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "user")
@@ -29,26 +27,18 @@ public class User implements Serializable {
 	
 	@Column(name = "name")
 	@Basic(optional = false)
-	@Size(max = 100)
-	@NotBlank
 	private String name;
 	
 	@Column(name = "surname")
 	@Basic(optional = false)
-	@Size(max = 100)
-	@NotBlank
 	private String surname;
 
 	@Column(name = "username")
 	@Basic(optional = false)
-	@Size(max = 100)
-	@NotBlank
 	private String username;
 	
 	@Column(name = "password")
 	@Basic(optional = false)
-	@Size(max = 100, min = 12)
-	@NotBlank
 	private String password;
 	
 	@Column(name = "create_date")

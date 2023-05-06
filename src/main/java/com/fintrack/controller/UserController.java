@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fintrack.model.user.User;
 import com.fintrack.model.user.UserBasicDTO;
+import com.fintrack.model.user.UserRequestDTO;
 import com.fintrack.model.user.UserResponseDTO;
 import com.fintrack.service.UserService;
 
@@ -31,9 +31,9 @@ public class UserController {
 	UserService userService;
 	
 	@PostMapping(headers="Accept=application/json", produces="application/json;charset=UTF-8")
-	public ResponseEntity<Object> create(@Valid @RequestBody User user) {
+	public ResponseEntity<Object> create(@Valid @RequestBody UserRequestDTO userBasic) {
 		try {
-			UserResponseDTO userResponseDTO = userService.createNewUser(user);
+			UserResponseDTO userResponseDTO = userService.createNewUser(userBasic);
 			return new ResponseEntity<Object>(userResponseDTO, HttpStatus.CREATED);
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();

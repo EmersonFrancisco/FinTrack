@@ -6,11 +6,14 @@ import java.util.List;
 
 import com.fintrack.model.user.User;
 import com.fintrack.model.user.UserBasicDTO;
+import com.fintrack.model.user.UserRequestDTO;
 import com.fintrack.model.user.UserResponseDTO;
+
+import jakarta.validation.Valid;
 
 public interface UserService {
 	
-	public UserResponseDTO createNewUser(User user) throws NoSuchAlgorithmException, UnsupportedEncodingException;
+	public UserResponseDTO createNewUser(@Valid UserRequestDTO userRequest) throws NoSuchAlgorithmException, UnsupportedEncodingException;
 	
 	public String encryptPassword(String password) throws NoSuchAlgorithmException, UnsupportedEncodingException;
 
