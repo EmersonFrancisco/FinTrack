@@ -23,7 +23,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "wallet")
@@ -40,12 +39,10 @@ public class Wallet implements Serializable{
     @ManyToOne(optional = false)
 	private User user;
 	
-	@NotBlank
 	@Column(name = "name")
 	@Basic(optional = false)
 	private String name;
 	
-	@NotBlank
 	@Column(name = "type")
 	@Basic(optional = false)
 	@Enumerated(EnumType.STRING)

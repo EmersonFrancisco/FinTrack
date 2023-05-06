@@ -4,11 +4,10 @@ import java.util.List;
 
 import com.fintrack.enums.WalletType;
 import com.fintrack.model.Deposit;
-import com.fintrack.model.user.User;
 
 public class WalletResponseDTO {
 
-	private User user;
+	private Integer id;
 	private String name;
 	private WalletType type;
 	private Double balance;
@@ -17,9 +16,9 @@ public class WalletResponseDTO {
 	public WalletResponseDTO() {
 	}
 
-	public WalletResponseDTO(User user, String name, WalletType type, Double balance, List<Deposit> deposits) {
+	public WalletResponseDTO(Integer id, String name, WalletType type, Double balance, List<Deposit> deposits) {
 		super();
-		this.user = user;
+		this.id = id;
 		this.name = name;
 		this.type = type;
 		this.balance = balance;
@@ -42,12 +41,12 @@ public class WalletResponseDTO {
 		this.deposits = deposits;
 	}
 
-	public User getUser() {
-		return user;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -68,7 +67,7 @@ public class WalletResponseDTO {
 
 	@Override
 	public String toString() {
-		return "WalletResponseDTO [user=" + user + ", name=" + name + ", type=" + type + ", balance=" + balance
+		return "WalletResponseDTO [id=" + id + ", name=" + name + ", type=" + type + ", balance=" + balance
 				+ ", deposits=" + deposits + "]";
 	}
 

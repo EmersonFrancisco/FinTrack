@@ -8,10 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fintrack.exception.AuthenticationException;
@@ -48,14 +48,14 @@ public class WalletController {
 		} catch (WalletValidateException e) {
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
-			return new ResponseEntity<Object>("A error ocurred during a create new wallet process", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Object>(String.format("A error ocurred during a create new wallet process, ERROR:%s", e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@DeleteMapping("/{idWallet}")
 	public ResponseEntity<Object> deleteWallet (
 			@RequestHeader(required = true) String authToken,
-			@RequestParam Integer idWallet){
+			@PathVariable Integer idWallet){
 		
 		try {
 			
@@ -68,7 +68,7 @@ public class WalletController {
 		} catch (WalletValidateException e) {
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
-			return new ResponseEntity<Object>("A error ocurred during a create new wallet process", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Object>("A error ocurred during a delete wallet process", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
@@ -83,17 +83,17 @@ public class WalletController {
 		} catch (AuthenticationException e) {
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.UNAUTHORIZED); 			
 		} catch (Exception e) {
-			return new ResponseEntity<Object>("A error ocurred during a create new wallet process", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Object>("A error ocurred during a get all wallet by user process", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
-	@GetMapping("/{idWallet")
+	@GetMapping("/{idWallet}")
 	public ResponseEntity<Object> getById (
 			@RequestHeader(required = true) String authToken,
-			@RequestParam Integer idWallet){
+			@PathVariable Integer idWallet){
 		try{
 			User user = userService.verifyIntegrityAuthTokenAndGetUser(authToken);
-			WalletResponseDTO walletResponse = walletService.getWalletResponseByUser(idWallet, user);
+			WalletResponseDTO walletResponse = walletService.getWalletResponseById(idWallet, user);
 			
 			return new ResponseEntity<Object>(walletResponse, HttpStatus.OK);
 		} catch (AuthenticationException e) {
@@ -101,7 +101,7 @@ public class WalletController {
 		} catch (WalletValidateException e) {
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
-			return new ResponseEntity<Object>("A error ocurred during a create new wallet process", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Object>("A error ocurred during a get wallet by id process", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	

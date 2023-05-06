@@ -15,6 +15,6 @@ public interface WalletService {
 
 	List<WalletResponseDTO> getAllWalletResponseByUser(User user);
 
-	WalletResponseDTO getWalletResponseByUser(Integer idWallet, User user) throws WalletValidateException;
+	WalletResponseDTO getWalletResponseById(Integer idWallet, User user) throws WalletValidateException;
 
 }

@@ -43,15 +43,16 @@ public class WalletServiceImpl implements WalletService {
 	@Override
 	public WalletResponseDTO validateAndCreateOrUpdateWallet(WalletRequestDTO walletRequest, User user) throws WalletValidateException {
 		Wallet wallet;
-		if(walletRequest.getId() != null) {
-			wallet = createNewWallet(walletRequest, user);
-		} else {
+		if(walletRequest.getId() != null && walletRequest.getId() > 0) {
 			wallet = walletRepositories.findById(walletRequest.getId()).orElse(null);
 			if(walletExistAndIsItFromTheUser(user, wallet)) {
 				updateWalletBasicInfo(wallet, walletRequest);
 			} else {
 				throw new WalletValidateException("idWallet is not valid, does not exist or does not belong to your username!");
 			}
+			
+		} else {
+			wallet = createNewWallet(walletRequest, user);
 		}
 		wallet = save(wallet);
 		return convertWalletToWalletResponse(wallet);
@@ -106,7 +107,7 @@ public class WalletServiceImpl implements WalletService {
 	}
 
 	@Override
-	public WalletResponseDTO getWalletResponseByUser(Integer idWallet,User user) throws WalletValidateException {
+	public WalletResponseDTO getWalletResponseById(Integer idWallet,User user) throws WalletValidateException {
 		Wallet wallet = findWalletById(idWallet);
 		if(walletExistAndIsItFromTheUser(user, wallet)) {	
 			return convertWalletToWalletResponse(wallet);
