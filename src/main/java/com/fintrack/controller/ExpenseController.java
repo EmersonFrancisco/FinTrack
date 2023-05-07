@@ -35,7 +35,7 @@ public class ExpenseController {
 	ExpenseService expenseService;
 	
 	@PatchMapping
-	public ResponseEntity<Object> createOrUpdateQuota (
+	public ResponseEntity<Object> createOrUpdateExpense (
 			@RequestHeader(required = true) String authToken,
 			@RequestBody @Valid ExpenseRequestDTO  expenseRequest){
 		
@@ -55,7 +55,7 @@ public class ExpenseController {
 	}
 	
 	@DeleteMapping("/{idExpense}")
-	public ResponseEntity<Object> deleteWallet (
+	public ResponseEntity<Object> deleteExpense (
 			@RequestHeader(required = true) String authToken,
 			@PathVariable Integer idExpense){
 		
@@ -95,9 +95,9 @@ public class ExpenseController {
 			@PathVariable Integer idExpense){
 		try{
 			User user = userService.verifyIntegrityAuthTokenAndGetUser(authToken);
-			ExpenseResponseDTO walletResponse = expenseService.getExpenseResponseByid(idExpense, user);
+			ExpenseResponseDTO expenseResponse = expenseService.getExpenseResponseByid(idExpense, user);
 			
-			return new ResponseEntity<Object>(walletResponse, HttpStatus.OK);
+			return new ResponseEntity<Object>(expenseResponse, HttpStatus.OK);
 		} catch (AuthenticationException e) {
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.UNAUTHORIZED); 			
 		} catch (ExpenseValidateException e) {
