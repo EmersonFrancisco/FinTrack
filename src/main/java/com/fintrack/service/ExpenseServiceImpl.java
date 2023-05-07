@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 import com.fintrack.enums.ExpenseStatus;
 import com.fintrack.enums.ExpenseType;
 import com.fintrack.exception.ExpenseValidateException;
-import com.fintrack.model.Quota;
 import com.fintrack.model.expense.Expense;
 import com.fintrack.model.expense.ExpenseRequestDTO;
 import com.fintrack.model.expense.ExpenseResponseDTO;
+import com.fintrack.model.quota.Quota;
 import com.fintrack.model.user.User;
 import com.fintrack.repositories.ExpenseRepositories;
 

@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fintrack.enums.ExpenseStatus;
-import com.fintrack.model.Quota;
 import com.fintrack.model.expense.Expense;
 import com.fintrack.model.expense.ExpenseRequestDTO;
+import com.fintrack.model.quota.Quota;
 import com.fintrack.repositories.QuotaRepositories;
 
 import jakarta.validation.Valid;

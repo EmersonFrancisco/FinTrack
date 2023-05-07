@@ -2,9 +2,9 @@ package com.fintrack.service;
 
 import java.util.List;
 
-import com.fintrack.model.Quota;
 import com.fintrack.model.expense.Expense;
 import com.fintrack.model.expense.ExpenseRequestDTO;
+import com.fintrack.model.quota.Quota;
 
 import jakarta.validation.Valid;
 

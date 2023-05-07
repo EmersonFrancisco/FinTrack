@@ -7,7 +7,7 @@ import java.util.Objects;
 
 import com.fintrack.enums.ExpenseStatus;
 import com.fintrack.enums.ExpenseType;
-import com.fintrack.model.Quota;
+import com.fintrack.model.quota.Quota;
 import com.fintrack.model.user.User;
 
 import jakarta.persistence.Basic;

@@ -4,7 +4,7 @@ import java.time.OffsetDateTime;
 import java.util.List;
 
 import com.fintrack.enums.ExpenseType;
-import com.fintrack.model.Quota;
+import com.fintrack.model.quota.Quota;
 
 public class ExpenseResponseDTO {
 

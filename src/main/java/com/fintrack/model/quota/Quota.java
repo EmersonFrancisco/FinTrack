@@ -1,4 +1,4 @@
-package com.fintrack.model;
+package com.fintrack.model.quota;
 
 import java.io.Serializable;
 import java.time.OffsetDateTime;
