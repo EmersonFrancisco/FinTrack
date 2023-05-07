@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.fintrack.exception.ExpenseValidateException;
 import com.fintrack.exception.UserValidateException;
 
 @ControllerAdvice
@@ -30,6 +31,15 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	
 	@ExceptionHandler(UserValidateException.class)
 	public ResponseEntity<Object> handleClientData(UserValidateException ex, WebRequest request) {
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		ProblemHandler problem = new ProblemHandler(status.value(), ex.getMessage());
+		
+		return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+		
+	}
+	
+	@ExceptionHandler(ExpenseValidateException.class)
+	public ResponseEntity<Object> handleClientData(ExpenseValidateException ex, WebRequest request) {
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		ProblemHandler problem = new ProblemHandler(status.value(), ex.getMessage());
 		

@@ -1,4 +1,4 @@
-package com.fintrack.model;
+package com.fintrack.model.expense;
 
 import java.io.Serializable;
 import java.time.OffsetDateTime;
@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import com.fintrack.enums.ExpenseStatus;
 import com.fintrack.enums.ExpenseType;
+import com.fintrack.model.Quota;
 import com.fintrack.model.user.User;
 
 import jakarta.persistence.Basic;
@@ -48,6 +49,10 @@ public class Expense implements Serializable {
 	@Basic(optional = false)
 	private ExpenseType type;
 	
+	@Column(name = "total_amount")
+	@Basic(optional = false)
+	private Double totalAmount;
+	
 	@Column(name = "day_month_payment")
 	@Basic(optional = false)
 	private Integer dayMonthPayment;
@@ -70,7 +75,7 @@ public class Expense implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(createDate, dayMonthPayment, id, name, status, type, user);
+		return Objects.hash(createDate, dayMonthPayment, id, name, quotas, status, totalAmount, type, user);
 	}
 
 	@Override
@@ -83,8 +88,17 @@ public class Expense implements Serializable {
 			return false;
 		Expense other = (Expense) obj;
 		return Objects.equals(createDate, other.createDate) && Objects.equals(dayMonthPayment, other.dayMonthPayment)
-				&& Objects.equals(id, other.id) && Objects.equals(name, other.name) && status == other.status
-				&& type == other.type && Objects.equals(user, other.user);
+				&& Objects.equals(id, other.id) && Objects.equals(name, other.name)
+				&& Objects.equals(quotas, other.quotas) && status == other.status
+				&& Objects.equals(totalAmount, other.totalAmount) && type == other.type
+				&& Objects.equals(user, other.user);
+	}
+
+	@Override
+	public String toString() {
+		return "Expense [id=" + id + ", user=" + user + ", name=" + name + ", type=" + type + ", totalAmount="
+				+ totalAmount + ", dayMonthPayment=" + dayMonthPayment + ", quotas=" + quotas + ", status=" + status
+				+ ", createDate=" + createDate + "]";
 	}
 
 	public Integer getId() {
@@ -149,6 +163,14 @@ public class Expense implements Serializable {
 
 	public void setCreateDate(OffsetDateTime createDate) {
 		this.createDate = createDate;
+	}
+
+	public Double getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(Double totalAmount) {
+		this.totalAmount = totalAmount;
 	}
 	
 }

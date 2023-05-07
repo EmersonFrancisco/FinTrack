@@ -82,7 +82,7 @@
             <column name="quota_number" type="INT(11)" defaultValue="NULL"/>
             <column name="amount" type="DOUBLE" defaultValue="NULL"/>
             <column name="total_paid" type="DOUBLE" defaultValue="NULL"/>
-            <column name="payment_day" type="DATETIME" defaultValue="NULL" />
+            <column name="payment_date" type="DATETIME" defaultValue="NULL" />
             <column name="status" type="ENUM('PENDENT', 'PARTIAL', 'PAID', 'DELAYED')" defaultValue="PENDENT" />
         </createTable>
         <createIndex tableName="quota" indexName="id_expense_index">
@@ -246,7 +246,12 @@
 			onUpdate="NO ACTION"
 			referencedTableName="quota" 
 			referencedColumnNames="id"/>
-			
     </changeSet>
-    
+    <changeSet id="add-column-total-amount-expense" author="Emerson">
+		<addColumn tableName="expense">
+			<column name="total_amount" type="DOUBLE" afterColumn="type">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+	</changeSet>   
 </databaseChangeLog>

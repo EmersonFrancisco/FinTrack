@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fintrack.enums.ExpenseStatus;
+import com.fintrack.model.expense.Expense;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -31,6 +33,7 @@ public class Quota implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "id_expense")
+	@JsonIgnore
 	@Basic(optional = false)
 	private Expense expense;
 	
@@ -40,14 +43,14 @@ public class Quota implements Serializable {
 	
 	@Column(name = "amount")
 	@Basic(optional = false)
-	private Float amount;
+	private Double amount;
 	
 	@Column(name = "total_paid")
-	private Float totalPaid;
+	private Double totalPaid;
 	
-	@Column(name = "payment_day")
+	@Column(name = "payment_date")
 	@Basic(optional = false)
-	private OffsetDateTime paymentDay;
+	private OffsetDateTime paymentDate;
 	
 	@Column(name = "status")
 	@Basic(optional = false)
@@ -56,7 +59,7 @@ public class Quota implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(amount, id, paymentDay, quotaNumber, status, totalPaid);
+		return Objects.hash(amount, id, paymentDate, quotaNumber, status, totalPaid);
 	}
 
 	@Override
@@ -69,7 +72,7 @@ public class Quota implements Serializable {
 			return false;
 		Quota other = (Quota) obj;
 		return Objects.equals(amount, other.amount) && Objects.equals(id, other.id)
-				&& Objects.equals(paymentDay, other.paymentDay) && Objects.equals(quotaNumber, other.quotaNumber)
+				&& Objects.equals(paymentDate, other.paymentDate) && Objects.equals(quotaNumber, other.quotaNumber)
 				&& status == other.status && Objects.equals(totalPaid, other.totalPaid);
 	}
 
@@ -97,28 +100,28 @@ public class Quota implements Serializable {
 		this.quotaNumber = quotaNumber;
 	}
 
-	public Float getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(Float amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 
-	public Float getTotalPaid() {
+	public Double getTotalPaid() {
 		return totalPaid;
 	}
 
-	public void setTotalPaid(Float totalPaid) {
+	public void setTotalPaid(Double totalPaid) {
 		this.totalPaid = totalPaid;
 	}
 
-	public OffsetDateTime getPaymentDay() {
-		return paymentDay;
+	public OffsetDateTime getPaymentDate() {
+		return paymentDate;
 	}
 
-	public void setPaymentDay(OffsetDateTime paymentDay) {
-		this.paymentDay = paymentDay;
+	public void setPaymentDate(OffsetDateTime paymentDate) {
+		this.paymentDate = paymentDate;
 	}
 
 	public ExpenseStatus getStatus() {

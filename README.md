@@ -25,15 +25,15 @@ o usuario de ter conhecimento de todas suas contas com apenas um clique.
 ### Despesa
 - [x] Criação Tabela Banco
 - [x] Criação e mapeamento de classe
-- [ ] Endpoint para Criação
-- [ ] Endpoint para Edição
-- [ ] Endpoint para Deleção
-  - **Parcelas**
-  - [x] Criação Tabela Banco
-  - [x] Criação e mapeamento de classe
-  - [ ] Endpoint para Criação 
-  - [ ] Endpoint para Edição 
-  - [ ] Endpoint para Deleção
+- [x] Endpoint para Criação
+- [x] Endpoint para Edição
+- [x] Endpoint para Deleção
+	* **Parcelas**
+		- [x] Criação Tabela Banco
+		- [x] Criação e mapeamento de classe
+		- [ ] Endpoint para Criação
+		- [ ] Endpoint para Edição
+		- [ ] Endpoint para Deleção
 
 ### Cartões de Credito
 - [x] Criação Tabela Banco
