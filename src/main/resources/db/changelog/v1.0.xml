@@ -247,11 +247,14 @@
 			referencedTableName="quota" 
 			referencedColumnNames="id"/>
     </changeSet>
-    <changeSet id="add-column-total-amount-expense" author="Emerson">
+    <changeSet id="8-add-column-total-amount-expense" author="Emerson">
 		<addColumn tableName="expense">
 			<column name="total_amount" type="DOUBLE" afterColumn="type">
 				<constraints nullable="false"/>
 			</column>
 		</addColumn>
-	</changeSet>   
+	</changeSet>
+	<changeSet id="9-drop-column-quota-number" author="Emerson">
+		<dropColumn tableName="quota" columnName="quota_number" />
+	</changeSet>      
 </databaseChangeLog>

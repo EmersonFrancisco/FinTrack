@@ -37,10 +37,6 @@ public class Quota implements Serializable {
 	@Basic(optional = false)
 	private Expense expense;
 	
-	@Column(name = "quota_number")
-	@Basic(optional = false)
-	private Integer quotaNumber;
-	
 	@Column(name = "amount")
 	@Basic(optional = false)
 	private Double amount;
@@ -59,7 +55,7 @@ public class Quota implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(amount, id, paymentDate, quotaNumber, status, totalPaid);
+		return Objects.hash(amount, id, paymentDate, status, totalPaid);
 	}
 
 	@Override
@@ -72,8 +68,7 @@ public class Quota implements Serializable {
 			return false;
 		Quota other = (Quota) obj;
 		return Objects.equals(amount, other.amount) && Objects.equals(id, other.id)
-				&& Objects.equals(paymentDate, other.paymentDate) && Objects.equals(quotaNumber, other.quotaNumber)
-				&& status == other.status && Objects.equals(totalPaid, other.totalPaid);
+				&& Objects.equals(paymentDate, other.paymentDate) && status == other.status && Objects.equals(totalPaid, other.totalPaid);
 	}
 
 	public Integer getId() {
@@ -90,14 +85,6 @@ public class Quota implements Serializable {
 
 	public void setExpense(Expense expense) {
 		this.expense = expense;
-	}
-
-	public Integer getQuotaNumber() {
-		return quotaNumber;
-	}
-
-	public void setQuotaNumber(Integer quotaNumber) {
-		this.quotaNumber = quotaNumber;
 	}
 
 	public Double getAmount() {

@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fintrack.exception.AuthenticationException;
 import com.fintrack.exception.ExpenseValidateException;
+import com.fintrack.exception.QuotaValidateException;
 import com.fintrack.model.expense.ExpenseRequestDTO;
 import com.fintrack.model.expense.ExpenseResponseDTO;
+import com.fintrack.model.quota.Quota;
+import com.fintrack.model.quota.QuotaRequestEditListDTO;
 import com.fintrack.model.user.User;
 import com.fintrack.service.ExpenseService;
 import com.fintrack.service.UserService;
@@ -51,6 +54,26 @@ public class ExpenseController {
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
 			return new ResponseEntity<Object>("A error ocurred during a create new expense process", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@PatchMapping("/quota")
+	public ResponseEntity<Object> updateListQuota (
+			@RequestHeader(required = true) String authToken,
+			@RequestBody @Valid QuotaRequestEditListDTO quotaEditListRequest){
+		
+		try {
+			
+			User user = userService.verifyIntegrityAuthTokenAndGetUser(authToken);
+			List<Quota> quota = expenseService.validateAndUpdateListQuotas(quotaEditListRequest, user);
+			
+			return new ResponseEntity<Object>(quota, HttpStatus.CREATED);
+		} catch (AuthenticationException e) {
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.UNAUTHORIZED); 			
+		} catch (QuotaValidateException e) {
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		} catch (Exception e) {
+			return new ResponseEntity<Object>("A error ocurred during a delete expense process", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
